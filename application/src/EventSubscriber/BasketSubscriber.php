@@ -9,8 +9,6 @@ class BasketSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
-        echo '<pre>',print_r('getSubscribedEvents', true),'</pre>';
-
         // Liste des évènements, méthodes et priorités
         return [
             'basket.product_added' => [

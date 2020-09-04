@@ -45,4 +45,14 @@ class TestController extends AbstractController
             'controller_name' => 'TestController',
         ]);
     }
+
+    /**
+     * @Route("/hello", name="hello")
+     */
+    public function hello()
+    {
+        return $this->render('test/hello.html.twig', [
+            'name' => 'Florian',
+        ]);
+    }
 }
