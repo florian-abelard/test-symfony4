@@ -7,22 +7,24 @@ database-doctrine-exec = docker-compose -f ${DOCKER_COMPOSE_FILE} exec -T --user
 
 #------------------------------------------------------------------------------
 
-db-init: db-create-database db-update-create ##@database create and populate database
+db-init: db-create db-create-schema ##@database create and populate database
 
-db-create-database: clean-db
+db-create: db-drop ##@database create the database
 	$(call database-doctrine-exec, php bin/console doctrine:database:create)
 
-db-update-create: 
-	$(call database-doctrine-exec, php bin/console doctrine:schema:create)
+db-drop: ##@database drop the database
+	$(call database-doctrine-exec, php bin/console doctrine:database:drop --if-exists --force)
 
-db-update-schema: 
-	$(call database-doctrine-exec, php bin/console doctrine:schema:update --force)
+db-migrate: ##@database run the database migrations 
+	$(call database-doctrine-exec, php bin/console doctrine:migrations:migrate)
 
-#------------------------------------------------------------------------------
-
-clean-db: ##@database clean database
-	$(call database-doctrine-exec, php bin/console doctrine:database:drop --force)
+db-create-migration: ##@database create a new migration file
+	$(call database-doctrine-exec, php bin/console doctrine:migrations:diff)
 
 #------------------------------------------------------------------------------
 
-.PHONY: db-init db-create db-populate
+clean-db: db-drop ##@database clean database
+
+#------------------------------------------------------------------------------
+
+.PHONY: db-init db-create db-drop db-migrate db-create-migration
