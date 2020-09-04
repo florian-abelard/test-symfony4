@@ -4,20 +4,35 @@ namespace App\Entity;
 
 use DateTime;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
 
+
+/**
+ * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ */
 class Article
 {
     /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message = "Un auteur doit être associé à l'article")
      */
     private $author;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
      * @Assert\NotBlank(message = "Le contenu ne peut être vide.")
      */
     private $content;
 
     /**
+     * @ORM\Column(type="string", length=255)
      * @Assert\Length(
      *     min = 10,
      *     max = 70,
@@ -28,9 +43,15 @@ class Article
     private $title;
 
     /**
+     * @ORM\Column(type="datetime", name="publication_date")
      * @Assert\Date(message = "Le format de la date n'est pas valide.")
      */
     private $publicationDate;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getAuthor(): ?string
     {
@@ -67,8 +88,8 @@ class Article
 
         return $this;
     }
-    
-    public function getPublicationDate(): ?string 
+
+    public function getPublicationDate(): ?string
     {
         return $this->publicationDate;
     }

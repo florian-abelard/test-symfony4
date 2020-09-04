@@ -26,6 +26,11 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             dump($article);
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($article);
+            $em->flush();
         }
 
         return $this->render('article/new.html.twig', [
