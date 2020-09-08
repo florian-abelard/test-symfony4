@@ -11,6 +11,8 @@ services:
       - '9000:9000'
     volumes:
       - .:/var/www/app
+    environment:
+      XDEBUG_CONFIG: remote_host=${HOST_IP} remote_port=9001 remote_enable=1
     working_dir: /var/www/app/application
 
   web:

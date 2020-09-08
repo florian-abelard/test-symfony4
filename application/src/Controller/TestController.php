@@ -17,19 +17,18 @@ class TestController extends AbstractController
     {
         $request = Request::createFromGlobals();
         $name = $request->get('name');
-        
+
         $response = new Response();
 
         $response->setContent(
             '<html><body>'
-            . 'Hello '
-            . $name
-            . '</body></html>'
+            .'Hello '
+            .$name
+            .'</body></html>'
         );
         $response->setStatusCode(Response::HTTP_OK);
         $response->headers->set('Content-Type', 'text/html');
 
-        //
         $complexObject->createdBy();
 
         // Retourne une réponse HTTP valide
@@ -51,6 +50,10 @@ class TestController extends AbstractController
      */
     public function hello()
     {
+        $test = 'toto';
+
+        echo $test;
+
         return $this->render('test/hello.html.twig', [
             'name' => 'Florian',
         ]);
