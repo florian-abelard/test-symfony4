@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Form\ArticleType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
@@ -13,7 +14,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/new", name="article_new")
      */
-    public function new(Request $request)
+    public function new(Request $request): Response
     {
         $article = new Article();
         $article->setTitle('Hello World');
