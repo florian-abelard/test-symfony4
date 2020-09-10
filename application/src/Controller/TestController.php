@@ -58,4 +58,11 @@ class TestController extends AbstractController
             'name' => 'Florian',
         ]);
     }
+
+    public function helloWorld()
+    {
+        @trigger_error('Cette fonction est dépréciée, utilisez la fonction hello($name) à la place.', E_USER_DEPRECATED);
+
+        return 'Hello World !';
+    }
 }
